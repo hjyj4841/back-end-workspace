@@ -1,0 +1,305 @@
+/*
+	뷰(VIEW)
+    - SELECT문을 저장할 수 있는 객체
+    - 가상 테이블 (실제 데이터가 담겨 있는 건 x => 논리적인 테이블)
+    - DML(INSERT, UPDATE, DELETE) 작업 가능
+    
+    * 사용 목적
+    - 편리성 : SELECT문의 복잡도 완화
+    - 보안성 : 테이블의 특정 열을 노출하고 싶지 않은 경우
+*/
+-- EMPLOYEE, DEPARTEMENT, LOCATION, NATIONAL
+-- '한국'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT EMP_ID, EMP_NAME, DEPT_TITLE, SALARY, NATIONAL_NAME
+FROM EMPLOYEE
+	JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+    JOIN NATIONAL USING (NATIONAL_CODE)
+WHERE NATIONAL_NAME = '한국';
+
+-- '러시아'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT EMP_ID, EMP_NAME, DEPT_TITLE, SALARY, NATIONAL_NAME
+FROM EMPLOYEE
+	JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+    JOIN NATIONAL USING (NATIONAL_CODE)
+WHERE NATIONAL_NAME = '러시아';
+
+-- '일본'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT EMP_ID, EMP_NAME, DEPT_TITLE, SALARY, NATIONAL_NAME
+FROM EMPLOYEE
+	JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+    JOIN NATIONAL USING (NATIONAL_CODE)
+WHERE NATIONAL_NAME = '일본';
+
+/*
+	1. VIEW 생성
+    CREATE [OR REPLACE] VIEW 뷰명
+    AS 서브쿼리;
+    
+    - OR REPLACE : 뷰 생성 시 기존에 중복된 이름의 뷰가 없다면 새로 뷰 생성,
+		기존에 중복된 뷰가 있다면 해당 뷰 수정.
+*/
+CREATE OR REPLACE VIEW VW_EMPLOYEE
+AS SELECT EMP_ID, EMP_NAME, DEPT_TITLE, SALARY, NATIONAL_NAME
+	FROM EMPLOYEE
+		JOIN DEPARTMENT ON (DEPT_ID = DEPT_CODE)
+		JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)
+		JOIN NATIONAL USING (NATIONAL_CODE);
+        
+SELECT * FROM VW_EMPLOYEE;
+
+-- '한국'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT *
+FROM VW_EMPLOYEE
+WHERE NATIONAL_NAME = '한국';
+
+-- '러시아'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT *
+FROM VW_EMPLOYEE
+WHERE NATIONAL_NAME = '러시아';
+
+-- '일본'에서 근무하는 사원들의 사번, 이름, 부서명, 급여, 근무국가명 조회
+SELECT *
+FROM VW_EMPLOYEE
+WHERE NATIONAL_NAME = '일본';
+
+/*
+	2. 뷰 컬럼에 별칭 부여
+    - 서브쿼리의 SELECT절에 함수식이나 산술연산식이 기술되어 있을 경우 반드시 별칭 지정
+*/
+-- 사원의 사번, 사원명, 직급명, 성별(남/여), 근무년수를 조회 할 수 있는
+-- SELECT 문을 뷰(VW_EMP_JOB) 생성
+
+CREATE OR REPLACE VIEW VW_EMP_JOB
+AS SELECT 
+	EMP_ID '사번', 
+    EMP_NAME '사원명', 
+    JOB_NAME '직급명', 
+    IF(SUBSTR(EMP_NO, 8, 1)=1, '남', '여') '성별',
+    TIMESTAMPDIFF(YEAR, HIRE_DATE, NOW()) '근무년수'
+	FROM EMPLOYEE
+		JOIN JOB USING (JOB_CODE);
+    
+-- 성별이 남자인 사원의 사원명과 직급명 조회
+SELECT 사원명, 직급명
+FROM VW_EMP_JOB
+WHERE 성별 = '남';
+
+-- 근무년수가 20년 이상인 사원 조회
+SELECT *
+FROM VW_EMP_JOB
+WHERE 근무년수 >= 20;
+
+/*
+	3. VIEW를 이용해서 DML(INSERT, UPDATE, DELETE) 사용
+    - 뷰를 통해 조작하게 되면 실제 데이터가 담겨 있는 테이블에 반영됨
+*/
+CREATE OR REPLACE VIEW VW_JOB
+AS SELECT JOB_CODE, JOB_NAME
+	FROM JOB;
+
+-- 뷰를 통해서 INSERT
+INSERT INTO VW_JOB
+VALUES('J8', '인턴');
+
+-- 뷰를 통해서 UPDATE
+UPDATE VW_JOB
+SET JOB_NAME = '알바'
+WHERE JOB_CODE = 'J8';
+
+-- 뷰를 통해서 DELETE
+DELETE FROM VW_JOB
+WHERE JOB_CODE = 'J8';
+
+SELECT * FROM VW_JOB; -- 논리적인 테이블 (실제 데이터가 담겨있지 X)
+SELECT * FROM JOB; -- 베이스 테이블 (실제 데이터가 담겨있음)
+
+/*
+	4. DML 구문으로 VIEW 조작이 불가능한 경우
+*/
+-- 1) 뷰 정의에 포함되지 않은 컬럼을 조작하는 경우
+CREATE OR REPLACE VIEW VW_JOB
+AS SELECT JOB_CODE FROM JOB;
+
+-- INSERT (에러)
+INSERT INTO VW_JOB(JOB_CODE, JOB_NAME)
+VALUES('J8', '인턴');
+
+INSERT INTO VW_JOB
+VALUES('J8'); -- 가능
+
+-- UPDATE (에러)
+UPDATE VW_JOB
+SET JOB_NAME = '인턴'
+WHERE JOB_CODE = 'J8';
+
+UPDATE VW_JOB
+SET JOB_CODE = 'J0'
+WHERE JOB_CODE = 'J8'; -- 가능
+
+-- DELETE (에러)
+DELETE FROM VW_JOB
+WHERE JOB_NAME = '사원';
+
+DELETE FROM VW_JOB
+WHERE JOB_CODE = 'J0'; -- 가능
+
+-- 2) 뷰에 포함되지 않은 컬럼 중에 베이스가 되는 컬럼이 NOT NULL 제약조건이 지정된 이유
+CREATE OR REPLACE VIEW VW_JOB
+AS SELECT JOB_NAME FROM JOB;
+
+-- JOB_CODE가 PRIMARY KEY 즉 NOT NULL 제약조건에 걸림
+INSERT INTO VW_JOB
+VALUES('인턴');
+
+UPDATE VW_JOB
+SET JOB_NAME = '인턴'
+WHERE JOB_NAME = '사원'; -- 가능
+
+-- 자식 데이터가 존재하지 않는 경우만 삭제
+DELETE FROM VW_JOB
+WHERE JOB_NAME = '인턴';
+
+SELECT * FROM VW_JOB;
+SELECT * FROM JOB;
+SELECT * FROM EMPLOYEE;
+
+-- 3. 산술표현식 또는 함수식으로 정의된 경우
+-- 사번, 사원명, 급여, 연봉(SALARY * 12)을 조회한 SELECT문으로 VW_EMP_SAL 뷰 정의
+CREATE OR REPLACE VIEW VW_EMP_SAL
+AS SELECT EMP_ID 사번, EMP_NAME 사원명, EMP_NO 주민번호, SALARY 급여, SALARY*12 연봉
+	FROM EMPLOYEE;
+    
+-- 산술연산식으로 정의된 컬럼은 데이터 추가 불가능
+INSERT INTO VW_EMP_SAL
+VALUES(300, '홍길동', 3000000, 36000000);
+
+-- 산술연산식이 컬럼에 같이 들어간 경우도 데이터 추가 불가능
+INSERT INTO VW_EMP_SAL(사번, 사원명, 주민번호, 급여)
+VALUES(300, '홍길동', '000000-0000000', 3000000);
+
+SELECT * FROM EMPLOYEE;
+DESC EMPLOYEE;
+
+-- 산술연산으로 정의된 컬럼은 데이터 변경 불가능
+UPDATE VW_EMP_SAL
+SET 연봉 = 8000000
+WHERE 사번 = 200;
+
+UPDATE VW_EMP_SAL
+SET 급여 = 9000000
+WHERE 사번 = 200; -- 산술연산과 무관한 컬럼은 데이터 변경 가능
+
+-- DELETE 가능
+DELETE FROM VW_EMP_SAL
+WHERE 연봉 = 72000000;
+
+SELECT * FROM VW_EMP_SAL;
+SELECT * FROM EMPLOYEE;
+
+-- 4. 그룹함수나 GROUP BY 절을 포함한 경우
+-- 부서별 급여의 합계, 평균을 조회한 SELECT 문을 VW_GROUPDEPT 뷰 정의
+CREATE OR REPLACE VIEW VW_GROUPDEPT
+AS SELECT DEPT_CODE, SUM(SALARY) 합계, AVG(SALARY) 평균
+	FROM EMPLOYEE
+    GROUP BY DEPT_CODE;
+
+SELECT * FROM VW_GROUPDEPT;
+
+-- INSERT (에러)
+INSERT INTO VW_GROUPDEPT
+VALUES('D11', 80, 40);
+
+-- UPDATE (에러)
+UPDATE VW_GROUPDEPT
+SET 합계 = 800
+WHERE DEPT_CODE = 'D1';
+
+-- DELETE (에러)
+DELETE FROM VW_GROUPDEPT
+WHERE 합계 = 5210000;
+
+-- 5. DISTINCT 구문이 포함된 경우
+-- EMPLOYEE 테이블로 JOB_CODE만 중복없이 조회한 SELECT문을 VW_DT_JOB 뷰 정의
+CREATE OR REPLACE VIEW VW_DT_JOB
+AS SELECT DISTINCT JOB_CODE
+	FROM EMPLOYEE;
+    
+-- INSERT (에러)
+INSERT INTO VW_DT_JOB
+VALUES('J8');
+
+-- UPDATE (에러)
+UPDATE VW_DT_JOB
+SET JOB_CODE = 'J0'
+WHERE JOB_CODE = 'J1';
+
+-- DELETE (에러)
+DELETE FROM VW_DT_JOB
+WHERE JOB_CODE = 'J2';
+    
+SELECT * FROM VW_DT_JOB;
+
+-- 6. JOIN을 이용해서 여러 테이블을 연결한 경우
+-- 사원들의 사번, 사원명, 주민번호, 부서명 조회한 SELECT 문을 VW_JOINEMP 뷰 정의
+CREATE OR REPLACE VIEW VW_JOINEMP
+AS SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_TITLE
+	FROM EMPLOYEE
+		JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
+        
+-- INSERT (에러)
+INSERT INTO VW_JOINEMP
+VALUES(500, '송준호', '800103-1111111', '총무부');
+
+INSERT INTO VW_JOINEMP(EMP_ID, EMP_NAME, EMP_NO)
+VALUES(500, '송준호', '800103-1111111'); -- 가능
+
+-- UPDATE
+UPDATE VW_JOINEMP
+SET EMP_NAME = '박성철'
+WHERE EMP_ID = 214;
+
+UPDATE VW_JOINEMP
+SET DEPT_TITLE = '회계부'
+WHERE EMP_ID = 214;
+
+-- DELETE
+DELETE FROM VW_JOINEMP
+WHERE EMP_ID = 214;
+
+SELECT * FROM VW_JOINEMP;
+
+-- 7. VIEW 옵션
+-- WITH CHECK OPTION : 서브쿼리에 기술된 조건에 부합하지 않는 값으로 수정시 에러 발생
+-- 급여가 3000000원 이상인 사원만 조회한 SELECT문을 VW_EMP 뷰 작성
+CREATE OR REPLACE VIEW VW_EMP
+AS SELECT *
+	FROM EMPLOYEE
+	WHERE SALARY >= 3000000;
+
+-- 200번 사원의 급여를 200만원으로 변경 (VW_EMP 이용해서)
+UPDATE VW_EMP
+SET SALARY = 2000000
+WHERE EMP_ID = 200;
+
+-- WITH CHECK OPTION 사용
+CREATE OR REPLACE VIEW VW_EMP
+AS SELECT *
+	FROM EMPLOYEE
+	WHERE SALARY >= 3000000
+WITH CHECK OPTION;
+
+-- 202번 사원의 급여를 200만원으로 변경 (VW_EMP 이용해서)
+UPDATE VW_EMP
+SET SALARY = 2000000
+WHERE EMP_ID = 202; -- 에러 발생
+
+-- 202번 사원의 급여를 400만원으로 변경 (VW_EMP 이용해서)
+UPDATE VW_EMP
+SET SALARY = 4000000
+WHERE EMP_ID = 202; -- 가능
+
+SELECT * FROM VW_EMP;
+SELECT * FROM EMPLOYEE;
