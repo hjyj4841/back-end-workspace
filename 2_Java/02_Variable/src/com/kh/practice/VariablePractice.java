@@ -8,11 +8,11 @@ public class VariablePractice {
 	public static void main(String[] args) {
 		VariablePractice variablePractice = new VariablePractice();
 		
-		variablePractice.method1();
-		variablePractice.method2();
-		variablePractice.method3();
-		variablePractice.method4();
-		variablePractice.method5();
+//		variablePractice.method1();
+//		variablePractice.method2();
+//		variablePractice.method3();
+//		variablePractice.method4();
+//		variablePractice.method5();
 		variablePractice.method6();
 		variablePractice.method7();
 	}
@@ -49,10 +49,10 @@ public class VariablePractice {
 		int y = 7;
 		int z = 9;
 		
-		int result = x;
+		int tmp = x;
 		x = y;
 		y = z;
-		z = result;
+		z = tmp;
 		
 		
 		System.out.printf("x = %d\ny = %d\nz = %d\n", x, y, z);
@@ -139,11 +139,14 @@ public class VariablePractice {
 
 		System.out.print("문자 : ");
 		char code = sc.nextLine().charAt(0);
-		int numCode = code;
+		
+//		int num = code;
+//		char code2 = (char)(num+1);
 		
 		System.out.printf("%c unicode : %d\n%c unicode : %d\n", 
-				code, numCode,
-				(int)numCode+1, numCode+1);
+				code, (int)code,
+				code+1, (int)code+1);
+		
 	}
 	
 	/*
@@ -167,9 +170,10 @@ public class VariablePractice {
 		System.out.print("수학 : ");
 		int num3 = Integer.parseInt(sc.nextLine());
 		
+		int sum = num1 + num2 + num3;
+		
 		System.out.printf("총점 : %d\n평균 : %.2f\n",
-				num1+num2+num3,
-				(double)(num1+num2+num3)/3);
+				sum, (double)sum/3);
 
 	}
 
