@@ -9,12 +9,12 @@ public class OperatorPractice {
 	public static void main(String[] args) {
 		OperatorPractice op = new OperatorPractice();
 		
-		op.method1();
-		op.method2();
-		op.method3();
-		op.method4();
-		op.method5();
-		op.method6();
+//		op.method1();
+//		op.method2();
+//		op.method3();
+//		op.method4();
+//		op.method5();
+//		op.method6();
 		op.method7();
 	}
 
@@ -23,10 +23,10 @@ public class OperatorPractice {
 	public void method1() {
 		System.out.println("---------Q1---------");
 		
-		System.out.printf("인원 수 : ");
+		System.out.print("인원 수 : ");
 		int person = Integer.parseInt(sc.nextLine());
 		
-		System.out.printf("연필 개수 : ");
+		System.out.print("연필 개수 : ");
 		int pen = Integer.parseInt(sc.nextLine());
 		
 		int num1 = pen / person;
@@ -47,6 +47,7 @@ public class OperatorPractice {
 		int result = num - (num % 100);
 		
 		System.out.println(result);
+//		System.out.println((num / 100) * 100);
 	}
 
 	//3개의 수를 입력 받아 입력 받은 수가 모두 같으면 true, 아니면 false를 출력하세요.
@@ -85,7 +86,7 @@ public class OperatorPractice {
 		System.out.print("주민번호 입력 (-포함) : ");
 		char no = sc.nextLine().charAt(7);
 		
-		String gender = no == '1' ? "남자" : "여자";
+		String gender = (no == '1') || (no == '3') ? "남자" : "여자";
 		
 		System.out.println(gender);
 		
@@ -118,6 +119,7 @@ public class OperatorPractice {
 		int result = (apple / bag) + (apple % bag >= 1 ? 1 : 0);
 		
 		System.out.println("필요한 바구니의 수 : " + result);
+//		System.out.println(apple / bag + (apple % bag == 0 ? 0 : 1));
 	}
 	
 }
