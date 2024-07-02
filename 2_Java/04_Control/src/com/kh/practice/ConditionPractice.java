@@ -1,5 +1,6 @@
 package com.kh.practice;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ConditionPractice {
@@ -13,13 +14,13 @@ public class ConditionPractice {
 //		c.method2();
 //		c.method3();
 //		c.method4();
-//		c.method5();
+		c.method5();
 //		c.method6();
 //		c.method7();
 //		c.method8();
 //		c.method9();
 //		c.method10();
-		c.method11();
+//		c.method11();
 	}
 
     /*
@@ -38,6 +39,14 @@ public class ConditionPractice {
     		if(num % 2 == 0) result = "짝수다";
     		else result = "홀수다";
     	}else result = "양수만 입력해주세요.";
+    	
+//    	if(num <= 0) { // 양수가 아닌 것들부터 처리
+//    		System.out.println("양수만 입력해주세요.");
+//    	}else if(num % 2 == 0) {
+//    		System.out.println("짝수다");
+//    	}else {
+//    		System.out.println("홀수다");
+//    	}
     	
     	System.out.println(result);
     }
@@ -87,7 +96,7 @@ public class ConditionPractice {
     	
     	int pizza = person / piece;
     	
-    	if(person % piece > 0) pizza += 1;
+    	if(person % piece != 0) pizza++;
     	
     	System.out.println(pizza);
     	
@@ -124,6 +133,7 @@ public class ConditionPractice {
     	if(korean >= 40 && math >= 40 && english >= 40 && avg >= 60) {
     		System.out.println("합계 : " + sum);
     		System.out.printf("평균 : %.1f\n", avg);
+//    		System.out.println("평균 : " + String.format("%.1f", avg));
     		System.out.println("축하합니다, 합격입니다!");
     	}else System.out.println("불합격입니다.");
     	
@@ -138,15 +148,15 @@ public class ConditionPractice {
      */
     public void method5() {
     	System.out.print("구매한 옷 가격 : ");
-    	int val = Integer.parseInt(sc.nextLine());
-    	int price = 0;
+    	int price = Integer.parseInt(sc.nextLine());
     	
-    	if(val >= 500000) price = val - (int)(val * 0.2);
-    	else if(val >= 300000) price = val - (int)(val * 0.1);
-    	else if(val >= 100000) price = val - (int)(val * 0.05);
-    	else price = val;
+    	if(price >= 500000) price = price - (int)(price * 0.2);
+    	else if(price >= 300000) price = price - (int)(price * 0.1);
+    	else if(price >= 100000) price = price - (int)(price * 0.05);
     	
-    	System.out.println(price);
+    	DecimalFormat df = new DecimalFormat("###,###");
+    	
+    	System.out.println(df.format(price));
     }
 
 
@@ -159,7 +169,7 @@ public class ConditionPractice {
     	int angle = Integer.parseInt(sc.nextLine());
     	int result = 0;
     	
-    	if(angle < 90) result = 1;
+    	if(0 < angle && angle < 90) result = 1;
     	else if(angle == 90) result = 2;
     	else if(angle < 180) result = 3;
     	else if(angle == 180) result = 4;
@@ -201,14 +211,12 @@ public class ConditionPractice {
     	System.out.print("비밀번호 : ");
     	String inputPw = sc.nextLine();
     	
-    	String result = "";
+    	String result;
     	
     	if(id.equals(inputId) && pw.equals(inputPw)) result = "로그인 성공!";
-    	else {
-    		if(!id.equals(inputId) && !pw.equals(inputPw)) result = "로그인 실패";
-    		else if(!id.equals(inputId)) result = "아이디가 틀렸습니다.";
-    		else if(!pw.equals(inputPw)) result = "비밀번호가 틀렸습니다.";
-    	}
+		else if (!id.equals(inputId) && !pw.equals(inputPw)) result = "로그인 실패";
+		else if (!id.equals(inputId)) result = "아이디가 틀렸습니다.";
+		else result = "비밀번호가 틀렸습니다.";
     	
     	System.out.println(result);
     }
@@ -235,15 +243,14 @@ public class ConditionPractice {
     	
     	double bmi = (kg / (cm * cm)) * 10000;
     	
-    	String result = "";
+    	String result = "고도 비만";
     	
     	if(bmi < 18.5) result = "저체중";
     	else if(bmi < 23) result = "정상체중";
     	else if(bmi < 25) result = "과체중";
     	else if(bmi < 30) result = "비만";
-    	else result = "고도 비만";
     	
-    	System.out.println(bmi);
+    	System.out.println("BMI 지수 : " + bmi);
     	System.out.println(result);
     }
 
@@ -268,29 +275,35 @@ public class ConditionPractice {
     	System.out.print("연산자를 입력(+,-,*,/,%) : ");
     	char op = sc.nextLine().charAt(0);
     	
-    	String result = "";
+    	int result = 0;
+    	
+    	if(num1 <= 0 || num2 <= 0) {
+    		System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+			return;
+    	}
     	
     	switch(op) {
 	    	case '+':
-	    		result = String.format("%d %c %d = %d", num1, op, num2, num1 + num2);
+	    		result = num1 + num2;
 	    		break;
 	    	case '-':
-	    		result = String.format("%d %c %d = %d", num1, op, num2, num1 - num2);
+	    		result = num1 - num2;
 	    		break;
 	    	case '*':
-	    		result = String.format("%d %c %d = %d", num1, op, num2, num1 * num2);
+	    		result = num1 * num2;
 	    		break;
 	    	case '/':
-	    		result = String.format("%d %c %d = %d", num1, op, num2, num1 / num2);
+	    		result = num1 / num2;
 	    		break;
 	    	case '%':
-	    		result = String.format("%d %c %d = %d", num1, op, num2, num1 % num2);
+	    		result = num1 % num2;
 	    		break;
     		default:
-    			result = "잘못 입력하셨습니다. 프로그램을 종료합니다.";
+    			System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+    			return;
     	}
     	
-    	System.out.println(result);
+    	System.out.printf("%d %c %d = %d", num1, op, num2, result);
     	
     }
 
@@ -315,7 +328,7 @@ public class ConditionPractice {
     	System.out.print("메뉴 번호를 입력하세요 : ");
     	int num = Integer.parseInt(sc.nextLine());
     	
-    	String result = "";
+    	String result;
     	
     	switch(num) {
 	    	case 1:
