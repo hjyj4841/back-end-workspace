@@ -1,5 +1,6 @@
 package com.kh.practice;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 class LoopPractice {
@@ -41,7 +42,7 @@ class LoopPractice {
     	int num = 0;
     	int sum = 0;
     	
-    	while(sum != 100) {
+    	while(sum < 100) {
     		num++;
     		if(num % 2 == 0) sum -= num;
     		else sum += num;
@@ -109,27 +110,9 @@ class LoopPractice {
     	int[] count = new int[6];
     	
     	for(int i = 0; i < 10; i++) {
-    		random = (int)(Math.random() * 6 + 1);
+    		random = (int)(Math.random() * 6);
     		
-    		switch(random) {
-	    		case 1:
-	    			count[0]++;
-	    			break;
-	    		case 2:
-	    			count[1]++;
-	    			break;
-	    		case 3:
-	    			count[2]++;
-	    			break;
-	    		case 4:
-	    			count[3]++;
-	    			break;
-	    		case 5:
-	    			count[4]++;
-	    			break;
-	    		case 6:
-	    			count[5]++;
-    		}
+    		count[random]++;
     	}
     	
     	for(int i = 0; i < count.length; i++) {
@@ -170,75 +153,42 @@ class LoopPractice {
     	 */
     	System.out.print("당신의 이름을 입력해주세요 : ");
     	String name = sc.nextLine();
-    	boolean check = true;
-    	int count = 0;
-    	int[] winOrLose = new int[2]; // 비긴 횟수 : [0], 진 횟수 : [1]
+    	int[] winOrLose = new int[2];
+    	String[] rps = {"가위", "바위", "보"};
     	
-    	while(check) {
+    	while(true) {
     		String result = null;
     		System.out.print("가위바위보 : ");
     		String userStr = sc.nextLine();
     		int random = (int)(Math.random() * 3);
     		
-    		String ComStr = random == 0 ? "가위" : random == 1 ? "바위" : "보";
+    		System.out.println("컴퓨터 : " + rps[random]);
+    		System.out.println(name + " : " + userStr);
     		
-    		switch(userStr) {
-				case "가위":
-					if(ComStr.equals("가위")) {
-						result = "비겼습니다.";
-						winOrLose[0]++;
-					}
-					else if(ComStr.equals("바위")) {
-						result = "졌습니다 ㅠㅠ";
-						winOrLose[1]++;
-					}
-					else {
-						result = "이겼습니다 !";
-						check = false;
-					}
-					break;
-				case "바위":
-					if(ComStr.equals("가위")) {
-						result = "이겼습니다 !";
-						check = false;
-					}
-					else if(ComStr.equals("바위")) {
-						result = "비겼습니다.";
-						winOrLose[0]++;
-					}
-					else {
-						result = "졌습니다 ㅠㅠ";
-						winOrLose[1]++;
-					}
-					break;
-				case "보":
-					if(ComStr.equals("가위")) {
-						result = "졌습니다 ㅠㅠ";
-						winOrLose[1]++;
-					}
-					else if(ComStr.equals("바위")) {
-						result = "이겼습니다 !";
-						check = false;
-					}
-					else {
-						result = "비겼습니다.";
-						winOrLose[0]++;
-					}
-					break;
-				default :
-					System.err.println("다시 입력하세요.");
-    		}
+    		// 배열에서 값으로 인덱스 찾기 -> 사용자가 입력한 값을 숫자로
+    		int number = Arrays.asList(rps).indexOf(userStr);
     		
-    		if(result != null) {
-    			System.out.println("컴퓨터 : " + ComStr);
-    			System.out.println(name + " : " + userStr);
-    			System.out.println(result);
-    			count++;
+    		if(number == random) {
+    			// 비겼을 경우
+    			result = "비겼습니다."; 
+    			winOrLose[0]++;
     		}
+    		else if((number == 0 && random == 2) ||
+    				(number == 1 && random == 0) ||
+    				(number == 2 && random == 1)) {
+    			// 이겼을 경우
+    			result = "이겼습니다 !";
+    			System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : 1\n", winOrLose[0], winOrLose[1]);
+    			break;
+    		}else {
+    			// 졌을 경우
+    			result = "졌습니다 ㅠㅠ";
+    			winOrLose[1]++;
+    		}
+    		System.out.println(result);
     		System.out.println();
-    		
     	}
-    	System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : 1\n", winOrLose[0], winOrLose[1]);
+    	
     }
 
 }
