@@ -30,6 +30,9 @@ public class Application {
 	 * - 접근제한자는 public, default, private, protected 등 설정 가능
 	 * - 클래스는 필드(Field), 메서드(Method), 생성자(Constructor)가 정의
 	 * - 클래스 작성 시 객체 지향 언어 특징 중 추상화(Abstraction), 캡슐화(Encapsulation)가 적용되어야 함
+	 * 
+	 * FQCN
+	 * - 패키지명과 클래스명 같이 명시 하는 것
 	 */
 	
 	public static void main(String[] args) {
