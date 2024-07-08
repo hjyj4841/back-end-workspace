@@ -11,18 +11,18 @@ public class Application {
 	EmployeeController employeeController = new EmployeeController();
 	
 	public static void main(String[] args) {
-		Application a = new Application();
+		Application app = new Application();
 		
 		while(true) {
-			switch(a.employeeMenu()) {
+			switch(app.employeeMenu()) {
 				case 1:
-					a.insertEmp();
+					app.insertEmp();
 					break;
 				case 2:
-					a.updateEmp();
+					app.updateEmp();
 					break;
 				case 3:
-					a.printEmp();
+					app.printEmp();
 					break;
 				case 9:
 					System.out.println("프로그램을 종료 합니다.");
@@ -33,47 +33,58 @@ public class Application {
 		}
 	}
 	
+	// 메인 메뉴 출력
 	public int employeeMenu() {
 		System.out.println("1. 사원 정보 추가");
 		System.out.println("2. 사원 정보 수정");
 		System.out.println("3. 사원 정보 출력");
 		System.out.println("9. 프로그램 종료");
-		
 		System.out.print("메뉴 번호를 누르세요 : ");
 		return Integer.parseInt(sc.nextLine());
 	}
 	
+	// 저장할 데이터 입력
 	public void insertEmp() {
 		System.out.print("사원 번호 : ");
-		int empNo = Integer.parseInt(sc.nextLine());
-		
+//		int empNo = Integer.parseInt(sc.nextLine());
+		viewEmployee.setEmpNo(Integer.parseInt(sc.nextLine()));
 		System.out.print("사원 이름 : ");
-		String name = sc.nextLine();
-		
+//		String name = sc.nextLine();
+		viewEmployee.setName(sc.nextLine());
 		System.out.print("사원 성별 : ");
-		char gender = sc.nextLine().charAt(0);
-		
+//		char gender = sc.nextLine().charAt(0);
+		viewEmployee.setGender(sc.nextLine().charAt(0));
 		System.out.print("전화 번호 : ");
-		String phone = sc.nextLine();
-		
+//		String phone = sc.nextLine();
+		viewEmployee.setPhone(sc.nextLine());
 		
 		while(true) {
 			System.out.print("추가 정보를 더 입력하시겠습니까?(y/n) : ");
 			switch(sc.nextLine().charAt(0)) {
 				case 'y':
 					System.out.print("사원 부서 : ");
-					String dept = sc.nextLine();
-					
+//					String dept = sc.nextLine();
+					viewEmployee.setDept(sc.nextLine());
 					System.out.print("사원 연봉 : ");
-					int salary = Integer.parseInt(sc.nextLine());
-					
+//					int salary = Integer.parseInt(sc.nextLine());
+					viewEmployee.setSalary(Integer.parseInt(sc.nextLine()));
 					System.out.print("보너스 율 : ");
-					double bonus = Double.parseDouble(sc.nextLine());
-					
-					employeeController.add(empNo, name, gender, phone, dept, salary, bonus);
+//					double bonus = Double.parseDouble(sc.nextLine());
+					viewEmployee.setBonus(Double.parseDouble(sc.nextLine()));
+
+					employeeController.add(viewEmployee.getEmpNo(), 
+							viewEmployee.getName(), 
+							viewEmployee.getGender(), 
+							viewEmployee.getPhone(), 
+							viewEmployee.getDept(),
+							viewEmployee.getSalary(), 
+							viewEmployee.getBonus());
 					return;
 				case 'n':
-					employeeController.add(empNo, name, gender, phone);
+					employeeController.add(viewEmployee.getEmpNo(), 
+							viewEmployee.getName(), 
+							viewEmployee.getGender(), 
+							viewEmployee.getPhone());
 					return;
 				default :
 					System.err.println("번호를 잘못 입력했습니다.");
@@ -81,6 +92,7 @@ public class Application {
 		}
 	}
 	
+	// 수정할 데이터 입력
 	public void updateEmp() {
 		while(true) {
 			System.out.println("사원의 어떤 정보를 수정하시겠습니까?");
@@ -110,6 +122,7 @@ public class Application {
 		}
 	}
 	
+	// 데이터 출력
 	public void printEmp() {
 		System.out.println(employeeController.info());
 	}

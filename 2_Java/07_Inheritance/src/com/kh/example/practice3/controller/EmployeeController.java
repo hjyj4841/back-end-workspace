@@ -5,6 +5,7 @@ import com.kh.example.practice3.model.Employee;
 public class EmployeeController {
 	private Employee employee = new Employee();
 	
+	// 오버로딩
 	public void add(int empNo, String name, char gender, String phone) {
 		employee.setEmpNo(empNo);
 		employee.setName(name);
