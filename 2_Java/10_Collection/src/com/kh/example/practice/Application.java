@@ -17,14 +17,12 @@ public class Application {
 			int random = (int)(Math.random() * 45 + 1);
 			if(!comNum.contains(random)) comNum.add(random);
 		}
-		
 		while(true) {
 			count++;
 			while(userNum.size() < 6) {
 				int random = (int)(Math.random() * 45 + 1);
 				if(!userNum.contains(random)) userNum.add(random);
 			}
-			
 			System.out.println("로또 번호 : " + comNum);
 			System.out.println("내 번호 : " + userNum);
 			
@@ -33,13 +31,11 @@ public class Application {
 					equalsNum++;
 				}
 			}
-			
 			if(equalsNum == 6) break;
 			equalsNum = 0;
 			userNum.clear();
 		}
 		System.out.println("횟수 : " + count);
-		
 	}
 
 }
