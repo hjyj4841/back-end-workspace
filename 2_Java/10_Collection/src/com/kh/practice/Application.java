@@ -70,7 +70,7 @@ public class Application {
 		}
 	}
 	
-	// 마지막 위치에 곡 추가 (구현 완)
+	// 마지막 위치에 곡 추가
 	public void addLastMusic() {
 		System.out.println("****** 마지막 위치에 곡 추가 ******");
 		System.out.print("곡 명 : ");
@@ -82,7 +82,7 @@ public class Application {
 		System.out.println(mc.addLastMusic(music.getMusicName(), music.getArtistName()));
 	}
 	
-	// 첫 위치에 곡 추가 (구현 완)
+	// 첫 위치에 곡 추가
 	public void addFirstMusic() {
 		System.out.println("****** 첫 위치에 곡 추가 ******");
 		System.out.print("곡 명 : ");
@@ -94,7 +94,7 @@ public class Application {
 		System.out.println(mc.addFirstMusic(music.getMusicName(), music.getArtistName()));
 	}
 	
-	// 전체 곡 목록 출력 (구현 완)
+	// 전체 곡 목록 출력
 	public void showAllMusicList() {
 		System.out.println("****** 전체 곡 목록 출력 ******");
 		
@@ -103,7 +103,7 @@ public class Application {
 		}
 	}
 	
-	// 특정 곡 검색 (구현 완)
+	// 특정 곡 검색
 	public void searchMusic() {
 		System.out.println("****** 특정 곡 검색 ******");
 		System.out.print("검색할 곡 명 : ");
@@ -113,14 +113,14 @@ public class Application {
 		}
 	}
 	
-	// 특정 곡 삭제 (구현 완)
+	// 특정 곡 삭제
 	public void deleteMusic() {
 		System.out.println("****** 특정 곡 삭제 ******");
 		System.out.print("삭제할 곡 명 : ");
 		System.out.println(mc.deleteMusic(sc.nextLine()));
 	}
 	
-	// 특정 곡 수정 (구현 완)
+	// 특정 곡 수정
 	public void updateMusic() {
 		System.out.println("****** 특정 곡 수정 ******");
 		System.out.print("검색할 곡 명 : ");

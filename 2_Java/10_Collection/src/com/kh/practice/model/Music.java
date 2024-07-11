@@ -36,4 +36,5 @@ public class Music implements Comparable<Music>{
 		return o.artistName.compareTo(this.artistName);
 	}
 	
+	
 }

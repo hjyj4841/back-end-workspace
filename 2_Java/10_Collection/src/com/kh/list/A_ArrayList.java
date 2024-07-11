@@ -98,7 +98,6 @@ public class A_ArrayList {
 		
 		// 9. isEmpty : 컬렉션이 비어있는지
 		System.out.println("리스트가 비어있는가? " + list.isEmpty());
-		
 		System.out.println("---------------");
 		
 		// 리스트에 저장된 사람들의 평균 연령 출력
