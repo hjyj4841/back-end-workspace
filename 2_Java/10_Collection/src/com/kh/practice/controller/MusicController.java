@@ -12,7 +12,14 @@ public class MusicController {
 	
 	private ArrayList<Music> music = new ArrayList<Music>();
 	private ArrayList<String> arr = new ArrayList<String>();
-	List<Music> musicList = new ArrayList<>();
+	
+	// 음악 이름으로 정렬하기 위해 Comparator 객체 생성 후 호출
+	private Comparator<Music> musicNameComparator = new Comparator<Music>() {
+		@Override
+		public int compare(Music o1, Music o2) {
+			return o1.getMusicName().compareTo(o2.getMusicName());
+		}
+	};
 	
 	// 마지막 위치에 곡 추가
 	public String addLastMusic(String musicName, String artistName) {
@@ -29,28 +36,26 @@ public class MusicController {
 	// 전체 곡 목록 출력
 	public ArrayList<String> showAllMusicList() {
 		arr.clear();
-		musicList.clear();
-		
 		for(Music m : music) {
 			arr.add(String.format("%s - %s", 
 					m.getArtistName(), 
 					m.getMusicName()));
 		}
+		
 		return arr;
 	}
 	
 	// 특정 곡 검색
 	public ArrayList<String> searchMusic(String musicName) {
 		arr.clear();
-		musicList.clear();
-		
-		for(Music m : music) {
-			if(m.getMusicName().contains(musicName)) {
-				arr.add(String.format("%s - %s을 검색 했습니다.", 
+		music.stream()
+			.filter(m -> m.getMusicName().contains(musicName))
+			.forEach(m -> {
+				arr.add((String.format("%s - %s을 검색 했습니다.", 
 					m.getArtistName(), 
-					m.getMusicName()));
-			}
-		}
+					m.getMusicName())));
+			});
+		
 		return arr;
 	}
 	
@@ -77,52 +82,28 @@ public class MusicController {
 						music.get(i).getArtistName(),
 						music.get(i).getMusicName());
 				music.set(i, new Music(updateMusicName, updateArtistName));
+				
 				return str;
 			}
 		}
-		
 		return "수정할 곡을 찾지 못했습니다.";
 	}
 	
 	// 가수 명 내림차순 정렬
 	public ArrayList<String> artistNameSort() {
 		arr.clear();
-		musicList.clear();
-		
-		musicList.addAll(music);
-		
-		Collections.sort(musicList);
-		
-		for(Music m : musicList) {
-			arr.add(String.format("%s - %s", m.getArtistName(), m.getMusicName()));
-		}
+		music.stream().sorted()
+			.forEach(m -> arr.add((String.format("%s - %s", m.getArtistName(), m.getMusicName()))));
 		
 		return arr;
-		
 	}
 	
 	// 곡 명 오름차순 정렬
 	public ArrayList<String> musicNameSort() {
 		arr.clear();
-		musicList.clear();
-		
-		musicList.addAll(music);
-		
-		Collections.sort(musicList, musicNameComparator);
-		
-		for(Music m : musicList) {
-			arr.add(String.format("%s - %s", m.getArtistName(), m.getMusicName()));
-		}
+		music.stream().sorted(musicNameComparator)
+			.forEach(m -> arr.add((String.format("%s - %s", m.getArtistName(), m.getMusicName()))));
 		
 		return arr;
 	}
-	
-	private Comparator<Music> musicNameComparator = new Comparator<Music>() {
-		
-		@Override
-		public int compare(Music o1, Music o2) {
-			return o1.getMusicName().compareTo(o2.getMusicName());
-			
-		}
-	};
 }

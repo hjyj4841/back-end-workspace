@@ -65,7 +65,7 @@ public class Application {
 					System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
 				}
 			} catch(NumberFormatException e) {
-				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+				System.out.println("숫자를 입력해주세요.");
 			}
 		}
 	}
@@ -134,7 +134,6 @@ public class Application {
 		
 		System.out.println(mc.updateMusic(findMusicName, 
 				music.getMusicName(), music.getArtistName()));
-		
 	}
 	
 	// 가수 명 내림차순 정렬
@@ -152,5 +151,4 @@ public class Application {
 			System.out.println(str);
 		}
 	}
-	
 }

@@ -1,7 +1,5 @@
 package com.kh.practice.model;
 
-import java.util.ArrayList;
-
 public class Music implements Comparable<Music>{
 	private String musicName;
 	private String artistName;
@@ -35,6 +33,5 @@ public class Music implements Comparable<Music>{
 	public int compareTo(Music o) {
 		return o.artistName.compareTo(this.artistName);
 	}
-	
 	
 }

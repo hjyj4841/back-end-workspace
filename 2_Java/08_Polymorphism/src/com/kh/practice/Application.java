@@ -61,17 +61,15 @@ public class Application {
 	
 	// 도서 대여
 	public void bookRental() {
-		for(int i = 0; i < mc.count; i++) {
+		for(int i = 0; i < mc.book.size(); i++) {
 			System.out.println((i+1) +"번도서 : " + mc.viewBook(i));
 		}
-		System.out.print("대여할 도서 번호 선택 : ");
-		int num = Integer.parseInt(sc.nextLine())-1;
-		
-		if(num > 5) {
-			System.out.println("올바른 번호가 아닙니다. 다시 입력하세요.");
+		try {
+			System.out.print("대여할 도서 번호 선택 : ");
+			System.out.println(mc.rentalBook(Integer.parseInt(sc.nextLine())-1));
+		} catch (NumberFormatException e) {
+			System.out.println("숫자를 입력해주세요.");
 		}
-		
-		System.out.println(mc.rentalBook(num));
 	}
 	
 }

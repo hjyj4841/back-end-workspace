@@ -1,16 +1,17 @@
 package com.kh.practice.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Member {
 	private String name;
 	private int age;
 	private int coupon;
-	private Book[] bookList = new Book[2];
+	private ArrayList<Book> bookList = new ArrayList<Book>();
 	
 	public Member() {
 	}
-	public Member(String name, int age, int coupon, Book[] bookList) {
+	public Member(String name, int age, int coupon, ArrayList<Book> bookList) {
 		this.name = name;
 		this.age = age;
 		this.coupon = coupon;
@@ -35,17 +36,16 @@ public class Member {
 	public void setCoupon(int coupon) {
 		this.coupon = coupon;
 	}
-	public Book[] getBookList() {
+	public ArrayList<Book> getBookList() {
 		return bookList;
 	}
-	public void setBookList(Book[] bookList) {
+	public void setBookList(ArrayList<Book> bookList) {
 		this.bookList = bookList;
 	}
+	
 	@Override
 	public String toString() {
-		return "Member [name=" + name + ", age=" + age + ", coupon=" + coupon + ", bookList="
-				+ Arrays.toString(bookList) + "]";
+		return "Member [name=" + name + ", age=" + age + ", coupon=" + coupon + ", bookList=" + bookList + "]";
 	}
-	
 	
 }
