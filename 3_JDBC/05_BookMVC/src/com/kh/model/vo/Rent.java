@@ -1,4 +1,4 @@
-package com.kh.model;
+package com.kh.model.vo;
 
 import java.util.Date;
 

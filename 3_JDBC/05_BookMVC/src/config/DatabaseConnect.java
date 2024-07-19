@@ -9,20 +9,20 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnect {
-	Properties p = new Properties();
-	private DatabaseConnect() {
+	
+	private Properties p = null;
+
+	public DatabaseConnect() {
 		try {
-			p.load(new FileInputStream("src/config/jdbc.properties"));
+			if(p == null) {
+				p = new Properties();
+				p.load(new FileInputStream("src/config/jdbc.properties"));
+			}
 			
 			Class.forName(ServerInfo.DRIVER_NAME);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	private static DatabaseConnect instance;
-	public static DatabaseConnect getInstance() {
-		if(instance == null) instance = new DatabaseConnect();
-		return instance;
 	}
 	
 	public Properties getProperties() {

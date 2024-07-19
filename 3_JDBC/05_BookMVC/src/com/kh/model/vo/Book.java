@@ -1,8 +1,13 @@
-package com.kh.model;
+package com.kh.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/*
+ * VO(Value Object)
+ * - 한 개 또는 그 이상의 속성들을 묶어서 특정 값을 나타내는 객체
+ */
 
 @AllArgsConstructor @NoArgsConstructor @Data
 public class Book {
@@ -10,10 +15,6 @@ public class Book {
 	private String bkTitle;
 	private String bkAuthor;
 	private int bkPrice;
-	private int bkPubNo;
+	private Publisher publisher;
 	
-	@Override
-	public String toString() {
-		return String.format("%d번 : %s (저자-%s) 가격 %d", bkNo, bkTitle, bkAuthor, bkPrice);
-	}
 }

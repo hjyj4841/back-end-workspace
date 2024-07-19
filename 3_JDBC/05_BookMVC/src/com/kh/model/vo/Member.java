@@ -1,4 +1,4 @@
-package com.kh.model;
+package com.kh.model.vo;
 
 import java.util.Date;
 
@@ -18,10 +18,12 @@ public class Member {
 	private char status;
 	private Date enrollDate;
 	
-	public Member(int memberNo, String memberId, String memberPwd, String memberName) {
+	public Member(int memberNo, String memberId, String memberPwd, String memberName, char status, Date enrollDate) {
 		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberPwd = memberPwd;
 		this.memberName = memberName;
+		this.status = status;
+		this.enrollDate = enrollDate;
 	}
 }
