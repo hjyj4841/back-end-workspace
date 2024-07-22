@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Rent {
 	private int rentNo;
 	private int rentMemNo;
-	private int rentBookNo;
+	private Book book;
 	private Date rentalDate;
 }

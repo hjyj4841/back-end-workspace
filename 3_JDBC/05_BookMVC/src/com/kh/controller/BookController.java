@@ -20,7 +20,8 @@ public class BookController {
 			ArrayList<Book> books = book.printBookAll();
 			
 			for(Book book : books) {
-				String bookpub = book.getPublisher().getPubName() == null ? "출판사 없음" : book.getPublisher().getPubName();
+				String bookpub = book.getPublisher().getPubName() == null ? 
+						"출판사 없음" : book.getPublisher().getPubName();
 				result.add(String.format("%d번 도서: %s (저자: %s) - 출판사 : %s", 
 						book.getBkNo(), book.getBkTitle(), book.getBkAuthor(), bookpub));
 			}

@@ -50,19 +50,15 @@ public class MemberDAO {
 		return null;
 	}
 	
-	// 4. 회원탈퇴
-	public boolean deleteMember(int memberNo) throws SQLException {		
+	// 5. 회원탈퇴
+	public int deleteMember(int memberNo) throws SQLException {		
 		Connection conn = dc.connect();
 		PreparedStatement ps = conn.prepareStatement(dc.getProperties().getProperty("deleteMember"));
 		ps.setInt(1, memberNo);
-		
-		if(ps.executeUpdate() == 0) {
-			dc.close(ps, conn);
-			return false;
-		}
+		int result = ps.executeUpdate();
 		
 		dc.close(ps, conn);
-		return true;
+		return result;
 	}
 	
 }

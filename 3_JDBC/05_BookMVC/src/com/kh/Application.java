@@ -171,7 +171,7 @@ public class Application {
 		else System.out.println("대여를 취소하는데 실패했습니다.");
 	}
 
-	// 4. 회원탈퇴
+	// 5. 회원탈퇴
 	public void deleteMember() {
 		if(mc.deleteMember(member.getMemberNo())) 
 			System.out.println("회원탈퇴 하였습니다 ㅠㅠ");

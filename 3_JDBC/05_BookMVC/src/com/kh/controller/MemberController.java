@@ -32,14 +32,16 @@ public class MemberController {
 		return null;
 	}
 	
-	// 4. 회원탈퇴
+	// 5. 회원탈퇴
 	public boolean deleteMember(int memberNo) {
 		try {
 			if(rent.printRentBook(memberNo).size() > 0) return false;
-			return member.deleteMember(memberNo);
+			// 만약 회원 탈퇴시 대여중인 책들 모두 기록 삭제 방식으로 할 시 -> DELETE 조건 CASCADE
+			if(member.deleteMember(memberNo) == 1) return true;
 		} catch (SQLException e) {
 			return false;
 		}
+		return false;
 		
 	}
 }
