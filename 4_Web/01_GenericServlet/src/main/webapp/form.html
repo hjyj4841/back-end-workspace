@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <h1>Form Data</h1>
+    <form action="form" method="post">
+      <div>
+        <label for="userId">ID : </label>
+        <input type="text" id="userId" name="userId" />
+      </div>
+      <div>
+        <label for="userPwd">PASSWORD : </label>
+        <input type="password" id="userPwd" name="userPwd" />
+      </div>
+      <div>
+        <label><input type="radio" name="gender" value="M" />남자</label>
+        <label><input type="radio" name="gender" value="F" />여자</label>
+      </div>
+      <div>
+        <h2>좋아하는 메뉴</h2>
+        <label>
+          <input type="checkbox" name="menu" value="짜장면" /> 짜장면
+        </label>
+        <label>
+          <input type="checkbox" name="menu" value="김치볶음밥" /> 김치볶음밥
+        </label>
+        <label>
+          <input type="checkbox" name="menu" value="파스타" /> 파스타
+        </label>
+        <label>
+          <input type="checkbox" name="menu" value="닭볶음탕" /> 닭볶음탕
+        </label>
+        <label> <input type="checkbox" name="menu" value="냉면" /> 냉면 </label>
+        <label>
+          <input type="checkbox" name="menu" value="쭈꾸미볶음" /> 쭈꾸미볶음
+        </label>
+      </div>
+      <input type="submit" value="전송" />
+    </form>
+  </body>
+</html>
