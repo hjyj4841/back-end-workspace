@@ -54,13 +54,13 @@ public class MemberDAO {
 		ps.setString(2, password);
 		ResultSet rs = ps.executeQuery();
 	
-		Member m = null;
+		Member member = null;
 		
 		if(rs.next()) {
-			m = new Member(rs.getString("ID"), rs.getString("PASSWORD"), rs.getString("NAME"));
+			member = new Member(id, password, rs.getString("NAME"));
 		}
 		close(conn, ps, rs);
-		return m;
+		return member;
 	}
 	
 	public Member searchMember(String id) throws SQLException {
@@ -72,7 +72,7 @@ public class MemberDAO {
 		Member m = null;
 		
 		if(rs.next()) {
-			m = new Member(rs.getString("ID"), rs.getString("PASSWORD"), rs.getString("NAME"));
+			m = new Member(id, rs.getString("PASSWORD"), rs.getString("NAME"));
 		}
 		
 		close(conn, ps, rs);

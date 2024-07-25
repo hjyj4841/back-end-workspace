@@ -26,12 +26,11 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			member = dao.loginMember(id, password);
-		} catch (SQLException e) {}
-		
-		if(member != null) {
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-		} 
+		} catch (SQLException e) {}
+		
 		response.sendRedirect("index.jsp");
 	}
 

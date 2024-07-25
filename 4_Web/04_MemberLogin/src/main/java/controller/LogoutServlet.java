@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.vo.Member;
 
 import java.io.IOException;
 
@@ -16,9 +17,11 @@ public class LogoutServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		session.invalidate();
+		Member member = (Member)session.getAttribute("member");
 		
-		response.sendRedirect("/index.jsp");
+		if(member != null) session.invalidate();
+		
+		response.sendRedirect("/");
 		
 	}
 

@@ -13,6 +13,6 @@
 	<div>아이디 : <%=member.getId() %></div>
 	<div>비밀번호 : <%=member.getPassword() %></div>
 	<div>이름 : <%=member.getName() %></div>
-	<a href="/index.jsp">홈으로 돌아가기</a>
+	<a href="/">홈으로 돌아가기</a>
 </body>
 </html>
