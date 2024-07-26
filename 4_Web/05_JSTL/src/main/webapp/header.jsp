@@ -5,12 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	h1 {
+		background: black;
+		color: white;
+	}
+</style>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
-	<form action="choose5_view.jsp">
-		숫자 : <input type="text" name="number"><br>
-		<input type="submit" value="전송">
-	</form>
+	<h1>Header</h1>
 </body>
 </html>
