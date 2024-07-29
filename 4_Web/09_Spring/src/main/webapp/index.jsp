@@ -14,13 +14,13 @@
 	<ul>
 	<c:choose>
 	<c:when test="${empty member}">
-		<li><a href="/views/register.jsp">회원가입</a></li>
+		<li><a href="/register">회원가입</a></li>
 		<li><a href="/views/login.jsp">로그인</a></li>
 	</c:when>
 	<c:otherwise>
 		<li><a href="/views/search.jsp">회원검색</a></li>
-		<li><a href="/front?command=allMember">전체회원보기</a></li>
-		<li><a href="/front?command=logout">로그아웃</a></li>
+		<li><a href="/allMember.do">전체회원보기</a></li>
+		<li><a href="/logout.do">로그아웃</a></li>
 	</c:otherwise>
 	</c:choose>
 	</ul>
