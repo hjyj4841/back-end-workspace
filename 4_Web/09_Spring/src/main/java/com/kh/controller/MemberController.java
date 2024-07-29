@@ -19,7 +19,7 @@ public class MemberController {
 	@GetMapping("register")
 	public void register() {}
 	
-	@PostMapping("register")
+	@PostMapping("register") 
 	public String register(Member vo) {
 		try {
 			dao.registerMember(vo);
