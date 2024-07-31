@@ -1,7 +1,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
-	<insert id="register" parameterType="com.kh.mybatis.model.vo.Member">
+	<insert id="register" parameterType="Member">
 		INSERT INTO member 
 		VALUES (#{id}, #{password}, #{name})
 	</insert>
+	
+	<select id="allMember" resultType="Member">
+		SELECT * FROM member
+	</select>
+	
+	<select id="login" parameterType="Member" resultType="Member">
+		SELECT * FROM member WHERE id = #{id} AND password = #{password}
+	</select>
+	
+	<!-- 
+		* if
+		- 동적 쿼리를 구현할 때 기본적으로 사용되는 구문
+		- 특정 조건을 만족할 경우 안의 구문을 쿼리에 포함
+		
+		* trim : 쿼리 구분의 특정 부분을 없앨 때 사용
+		- prefix로 처음 시작할 단어와 prefixOverrides로 시작시 제거해야 할 단어 명시
+		- suffixOverrides로 끝날시 제거해야 할 단어 명시
+		- where 또는 set 을 더 많이 사용
+		
+		* set : <trim prefix="SET" suffixOverrides=",">
+		- 기존의 UPDATE SET 절을 동적으로 구현할 때 사용
+		- SET 키워드를 붙이고 불필요한 콤마(,)를 제거
+		
+		* where : <trim prefix="WHERE" prefixOverrides="AND|OR">
+		- 기존 쿼리의 WHERE 절을 동적으로 구현할 때 사용
+		- 만약 태그 안의 내용이 'AND'나 'OR'로 시작할 경우 'AND'나 'OR'을 제거
+	 -->
+	
+	<update id="update" parameterType="Member">
+		UPDATE member 
+		<set>
+			<if test="password != null">
+				password = #{password}, 
+			</if>
+			<if test="name != null">
+				name = #{name}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>
