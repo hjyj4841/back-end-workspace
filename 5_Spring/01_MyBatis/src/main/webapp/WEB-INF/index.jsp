@@ -32,20 +32,35 @@
 				<li><a href="/register">회원가입</a></li>
 				<li><a href="/login">로그인</a></li>
 			</ul>
-			<table border="1">
-				<tr>
-					<th>아이디</th>
-					<th>비밀번호</th>
-					<th>이름</th>
-				</tr>
-				<c:forEach var="member" items="${list }">
+			<form action="/search">
+				<select name="select">
+					<option value="all">이름 또는 아이디</option>
+					<option value="id">아이디</option>
+					<option value="name">이름</option>
+				</select>
+				<input type="text" name="keyword">
+				<input type="submit" value="검색">
+			</form>
+			
+			<form action="/delete" method="post">
+				<table border="1">
 					<tr>
-						<td>${member.id }</td>
-						<td>${member.password }</td>
-						<td>${member.name }</td>
+						<th>아이디</th>
+						<th>비밀번호</th>
+						<th>이름</th>
+						<th>삭제</th>
 					</tr>
-				</c:forEach>
-			</table>
+					<c:forEach var="member" items="${list }">
+						<tr>
+							<td>${member.id }</td>
+							<td>${member.password }</td>
+							<td>${member.name }</td>
+							<td><input type="checkbox" name="idList" value="${member.id }"></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<input type="submit" value="삭제">
+			</form>
 		</c:otherwise>
 	</c:choose>
 </body>

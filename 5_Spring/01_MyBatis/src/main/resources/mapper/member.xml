@@ -18,6 +18,10 @@
 		- 동적 쿼리를 구현할 때 기본적으로 사용되는 구문
 		- 특정 조건을 만족할 경우 안의 구문을 쿼리에 포함
 		
+		* choose
+		- JSTL의 choose 구문과 유사하여 주어진 구문 중 한가지만을 수행
+		- 하위 요소인 when, otherwise 요소와 함께 사용
+		
 		* trim : 쿼리 구분의 특정 부분을 없앨 때 사용
 		- prefix로 처음 시작할 단어와 prefixOverrides로 시작시 제거해야 할 단어 명시
 		- suffixOverrides로 끝날시 제거해야 할 단어 명시
@@ -44,4 +48,51 @@
 		</set>
 		WHERE id = #{id}
 	</update>
+	
+	<!-- 
+	select에 따라서
+	all이면 아이디 또는 이름으로 검색
+	id면 아이디에서만 검색
+	name이면 이름에서만 검색
+	 -->
+	<select id="search" parameterType="SearchDTO" resultType="Member">
+		SELECT * FROM member
+		<!--
+		<where>
+			<if test="select == 'all'">
+				id LIKE CONCAT('%', #{keyword}, '%')
+				OR name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="select == 'id'">
+				id LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="select == 'name'">
+				name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+		-->
+		<where>
+			<choose>
+			<when test="select == 'all'">
+				id LIKE CONCAT('%', #{keyword}, '%')
+				OR name LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="select == 'id'">
+				id LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="select == 'name'">
+				name LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			</choose>
+		</where>
+	</select>
+	
+	<!-- foreach : 동적 쿼리를 구현할 때 컬렉션에 대한 반복 처리 제공 -->
+	<delete id="delete" parameterType="ArrayList">
+		DELETE FROM member
+		WHERE id IN
+		<foreach collection="idList" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
 </mapper>
