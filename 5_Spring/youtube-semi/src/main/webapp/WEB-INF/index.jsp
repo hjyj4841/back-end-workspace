@@ -74,12 +74,25 @@
          <a href="">야생생물</a>
        </nav>
        <section>
-       	<c:forEach items="${list }" var="video">
-       		${video }
-       	</c:forEach>
+	       	<c:forEach items="${list }" var="video">
+				<div class="video-card" data-code="${video.videoCode }">
+					<div class="video-main">
+						<img src="${video.videoImg }" />
+						<video src="${video.videoUrl }" controls></video>
+					</div>
+					<div class="video-info">
+						<img src="${video.channel.channelImg }" />
+						<div class="video-desc">
+							<h2>${video.videoTitle }</h2>
+							<p>${video.channel.channelName }</p>
+							<p>조회수 ${video.videoCount }ㆍ${video.videoDate }</p>
+						</div>
+					</div>
+				</div>
+	       	</c:forEach>
        </section>
      </div>
    </main>
-   <script src="./script.js"></script>
+   <script src="${pageContext.request.contextPath}/js/script.js"></script>
  </body>
 </html>

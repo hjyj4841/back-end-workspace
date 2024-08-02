@@ -137,3 +137,50 @@ main section {
     width: 90%;
   }
 }
+
+/* section - video */
+.video-card {
+  width: 350px;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+.video-card:hover .video-main video{
+	display: block;
+}
+.video-card:hover .video-main img{
+	display: none;
+}
+
+.video-main video,
+.video-main img {
+  width: 100%;
+  position: absolute;
+}
+
+.video-main img {
+  border-radius: 10px;
+}
+
+.video-main video {
+  display: none;
+}
+
+.video-info {
+  padding-top: 200px;
+  display: flex;
+  line-height: 1.2;
+}
+.video-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.video-info h2 {
+  font-weight: bold;
+}
+.video-info p {
+  font-size: 0.9rem;
+  color: #555;
+}
