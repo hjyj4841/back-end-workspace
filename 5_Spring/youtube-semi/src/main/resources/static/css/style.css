@@ -20,6 +20,7 @@ header {
   display: flex;
   justify-content: space-between;
   height: 60px;
+  z-index: 1;
 }
 .header-start {
   display: flex;
@@ -85,6 +86,7 @@ main nav {
   padding-left: 15px;
   align-items: center;
   background-color: white;
+  z-index: 1;
 }
 main nav a {
   background-color: #eee;
@@ -139,11 +141,15 @@ main section {
 }
 
 /* section - video */
+section{
+	display: flex;
+}
 .video-card {
   width: 350px;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
+  margin: 5px;
 }
 .video-card:hover .video-main video{
 	display: block;
