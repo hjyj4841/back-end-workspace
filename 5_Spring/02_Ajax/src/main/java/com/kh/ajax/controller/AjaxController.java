@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.ajax.model.vo.Member;
 import com.kh.ajax.service.MemberService;
 
 @Controller
@@ -33,5 +34,11 @@ public class AjaxController {
 	@PostMapping("/check")
 	public boolean idCheck(String id) {
 		return member.idCheck(id);
+	}
+	
+	@ResponseBody
+	@PostMapping("/serial")
+	public Member serial(Member m) {
+		return member.serial(m);
 	}
 }

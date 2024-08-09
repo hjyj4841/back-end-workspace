@@ -4,4 +4,9 @@
 		SELECT * FROM member
 		WHERE id = #{id}
 	</select>
+	
+	<insert id="serial" parameterType="Member">
+		INSERT INTO member 
+		VALUES(#{id}, #{password}, #{name})
+	</insert>
 </mapper>
