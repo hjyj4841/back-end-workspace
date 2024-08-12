@@ -1,4 +1,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.VideoLikeMapper">
-
+	
+	<resultMap type="VideoLike" id="likeMap">
+		<id property="likeCode" column="like_code"/>
+		<result property="id" column="id"/>
+		<result property="videoCode" column="video_code"/>
+	</resultMap>
+	
+	<insert id="like" parameterType="VideoLike" useGeneratedKeys="true" keyProperty="likeCode">
+		INSERT INTO video_like(id, video_code) VALUES (#{id}, #{videoCode})
+	</insert>
+	
+	<select id="check" parameterType="VideoLike" resultMap="likeMap">
+		SELECT * FROM video_like
+		WHERE id = #{id} AND video_code = #{videoCode}
+	</select>
+	
+	<delete id="unlike" parameterType="Integer">
+		DELETE FROM video_like
+		WHERE like_code = #{code}
+	</delete>
+	
 </mapper>
