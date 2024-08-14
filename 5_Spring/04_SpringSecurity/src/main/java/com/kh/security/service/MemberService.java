@@ -32,7 +32,7 @@ public class MemberService {
 		Member member = mapper.login(vo.getId());
 //		System.out.println("DB에 있는 사용자 정보 : " + member);
 		
-		if(member != null &&bcpe.matches(vo.getPassword(), member.getPassword())) {
+		if(member != null && bcpe.matches(vo.getPassword(), member.getPassword())) {
 //			System.out.println("비밀번호 일치한지 체크 : " + bcpe.matches(vo.getPassword(), member.getPassword()));
 			return member;
 		}
