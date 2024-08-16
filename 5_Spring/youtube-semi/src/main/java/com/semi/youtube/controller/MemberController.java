@@ -25,26 +25,6 @@ public class MemberController {
 		return member.check(id);
 	}
 	
-	// 로그인
-	@PostMapping("/login")
-	public String login(Member vo, HttpServletRequest request) {
-		Member result = member.login(vo);
-		if(result != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("vo", result);
-			return "redirect:/";
-		}
-		return "login";
-	}
-	
-	// 로그아웃
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		return "redirect:/";
-	}
-	
 	// 회원가입
 	@PostMapping("/signup")
 	public String signup(Member vo) {

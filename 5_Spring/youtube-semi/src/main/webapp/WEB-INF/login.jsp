@@ -16,7 +16,7 @@
 		<form action="/login" method="post">
 			<div class="mb-3">
 				<label for="id" class="form-label">아이디</label> 
-				<input type="text" class="form-control" id="id" name="id">
+				<input type="text" class="form-control" id="id" name="username">
 				<div id="idCheck" class="form-text"></div>
 			</div>
 			<div class="mb-3">

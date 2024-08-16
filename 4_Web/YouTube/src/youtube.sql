@@ -8,7 +8,7 @@ DROP TABLE SUBSCRIBE;
 -- 회원
 CREATE TABLE MEMBER(
 	ID VARCHAR(20) PRIMARY KEY,
-    PASSWORD VARCHAR(20),
+    PASSWORD VARCHAR(60),
     EMAIL VARCHAR(50),
     PHONE VARCHAR(13)
 );
@@ -70,9 +70,6 @@ CREATE TABLE VIDEO_LIKE(
     FOREIGN KEY(VIDEO_CODE) REFERENCES VIDEO(VIDEO_CODE)
 );
 
-INSERT INTO MEMBER(ID, PASSWORD, EMAIL, PHONE) VALUES('akmu', '1234', 'akmu@gmail.com', '010-0000-0000');
-SELECT * FROM MEMBER;
-
 insert into channel(channel_img, channel_name, id) values('http://192.168.10.51:8082/channel/dingo.jpg', '딩고 뮤직', 'akmu');
 
 INSERT INTO CHANNEL(CHANNEL_IMG, CHANNEL_NAME, ID) VALUES('http://192.168.10.51:8082/channel/akmu.jpg', 'AKMU' ,'akmu');
@@ -88,3 +85,7 @@ SELECT * FROM VIDEO
 JOIN channel USING(channel_code);
 
 SELECT * FROM VIDEO WHERE VIDEO_CODE = 2;
+
+select * from member;
+select * from video_like;
+select * from subscribe;
