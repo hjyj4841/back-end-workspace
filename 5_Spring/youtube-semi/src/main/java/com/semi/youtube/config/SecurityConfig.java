@@ -23,7 +23,7 @@ public class SecurityConfig {
 					.permitAll()
 				)
 				.logout(logout ->
-					logout.logoutUrl("logout") // 로그아웃 요청 url
+					logout.logoutUrl("/logout") // 로그아웃 요청 url
 					.logoutSuccessUrl("/") // 로그아웃 성공했을때
 					.permitAll()
 				)
