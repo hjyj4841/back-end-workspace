@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +31,13 @@
 			</thead>
 			<tbody>
 				<!-- 리스트 가져다가 뿌리기 -->
-				<c:forEach items="${list }" var="board">
-						<tr class="boardList" data-code="${board.no }">
-							<td>${board.no }</td>
-							<td><img alt="${board.url }" src="${board.url }" style="width: 100px; height: 100px; object-fit: cover"></td>
-							<td>${board.title }</td>
-							<td>${board.date }</td>
-						</tr>
+				<c:forEach items="${list }" var="board" varStatus="status">
+					<tr class="boardList" data-code="${board.no }">
+						<td>${status.count }</td>
+						<td><img alt="${board.url }" src="${board.url }" style="width: 100px; height: 100px; object-fit: cover"></td>
+						<td>${board.title }</td>
+						<td><fmt:formatDate value="${board.formatDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -47,8 +48,7 @@
 		
 		boardList.forEach(board =>{
 			board.addEventListener("click", function(){
-				alert("!");
-				location.href = '/boardDetail?no=' + board.getAttribute("data-code");
+				location.href = '/view?no=' + board.getAttribute("data-code");
 			});
 		});
 	</script>
