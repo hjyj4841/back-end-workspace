@@ -14,4 +14,5 @@ public interface BoardMapper {
 	Board view(int no);
 	void update(Board board);
 	void delete(int no);
+	int total();
 }

@@ -35,6 +35,10 @@ public class BoardService {
 		return mapper.showList(paging);
 	}
 	
+	public int total() {
+		return mapper.total();
+	}
+	
 	public Board view(int no) {
 		return mapper.view(no);
 	}
@@ -46,4 +50,5 @@ public class BoardService {
 	public void delete(int no) {
 		mapper.delete(no);
 	}
+	
 }

@@ -69,10 +69,8 @@ CREATE TABLE VIDEO_LIKE(
     FOREIGN KEY(ID) REFERENCES MEMBER(ID),
     FOREIGN KEY(VIDEO_CODE) REFERENCES VIDEO(VIDEO_CODE)
 );
-
-insert into channel(channel_img, channel_name, id) values('http://192.168.10.51:8082/channel/dingo.jpg', '딩고 뮤직', 'akmu');
-
 INSERT INTO CHANNEL(CHANNEL_IMG, CHANNEL_NAME, ID) VALUES('http://192.168.10.51:8082/channel/akmu.jpg', 'AKMU' ,'akmu');
+insert into channel(channel_img, channel_name, id) values('http://192.168.10.51:8082/channel/dingo.jpg', '딩고 뮤직', 'akmu');
 SELECT * FROM CHANNEL;
 
 INSERT INTO VIDEO(VIDEO_URL, VIDEO_IMG, VIDEO_TITLE, VIDEO_DESC, CHANNEL_CODE) 
@@ -83,6 +81,8 @@ VALUES('http://192.168.10.51:8082/video/day6.mp4', 'http://192.168.10.51:8082/th
 
 SELECT * FROM VIDEO
 JOIN channel USING(channel_code);
+
+
 
 SELECT * FROM VIDEO WHERE VIDEO_CODE = 2;
 

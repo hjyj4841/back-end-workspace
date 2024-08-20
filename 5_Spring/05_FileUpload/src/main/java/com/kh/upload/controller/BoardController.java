@@ -68,9 +68,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model) {
-		
-		Paging paging = new Paging(); // 임시
+	public String list(Model model, Paging paging) {
 		
 		List<Board> list = service.showList(paging);
 		
@@ -81,6 +79,8 @@ public class BoardController {
 		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("paging", new Paging(paging.getPage(), service.total()));
+		
 		return "list";
 	}
 	
